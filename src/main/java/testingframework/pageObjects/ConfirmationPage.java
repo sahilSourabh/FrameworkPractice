@@ -5,11 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ConfirmationPage {
+import testingframework.AbstractComponents.AbstractComponent;
+
+public class ConfirmationPage extends AbstractComponent{
 	WebDriver driver;
 	
 	public ConfirmationPage(WebDriver driver) {
 		
+		super(driver);
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -19,9 +22,6 @@ public class ConfirmationPage {
 	
 	@FindBy(css="label[class='ng-star-inserted']")
 	WebElement orderId;
-	
-	@FindBy(xpath="//button[contains(@routerlink,'/myorders')]")
-	WebElement orderButton;
 	
 	public String getConfirmationMessage() {
 		
@@ -34,9 +34,4 @@ public class ConfirmationPage {
 		return orderID;
 	}
 
-	public void gotoOrders() {
-		
-		orderButton.click();
-		
-	}
 }

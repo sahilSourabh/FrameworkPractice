@@ -2,7 +2,6 @@ package testingframework.pageObjects;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,25 +26,22 @@ public class CheckOutPage {
 	@FindBy(css=".btnn.action__submit")
 	WebElement placeOrderButton;
 	
-	public void countryDetails(String countryInput) {
+	public void inputCountryDetails(String countryInput) {
 		
 		inputfield.sendKeys(countryInput);
 	}
 	
-	public WebElement getCountry(String countryName) {
-		
-		WebElement select = country.stream().filter(s->s.getText().equals(countryName)).findFirst().orElse(null);
-		return select;
-	}
-
 	public void selectCountry(String countryName)  {
 		
-		getCountry(countryName).click();
+		WebElement select = country.stream().filter(s->s.getText().equals(countryName)).findFirst().orElse(null);
+		select.click();
 	}
 	
-	public void gotoConfirmationPage() {
+	public ConfirmationPage gotoConfirmationPage() {
 		
 		placeOrderButton.click();
+		ConfirmationPage confirmationpage = new ConfirmationPage(driver);
+		return confirmationpage;
 	}
 	
 	

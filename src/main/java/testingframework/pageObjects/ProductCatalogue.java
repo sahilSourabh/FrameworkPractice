@@ -8,48 +8,54 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProductCatalogue {
-	
+import testingframework.AbstractComponents.AbstractComponent;
+
+public class ProductCatalogue extends AbstractComponent {
+
 	WebDriver driver;
-	
+
 	public ProductCatalogue(WebDriver driver) {
-		
-		this.driver=driver;
-		PageFactory.initElements(driver, this);	
+
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
-	
-	@FindBy(css=".mb-3")
-	List<WebElement> items;
-	
-	@FindBy(css=".card-body button:last-of-type")
+
+	@FindBy(css = ".mb-3")
+	List<WebElement> products;
+
+	@FindBy(css = ".card-body button:last-of-type")
 	WebElement addtoCart;
 	
-	@FindBy(xpath="//button[contains(@routerlink,'/cart')]")
-	WebElement cartButton;
-	
+	@FindBy(css=".ng-animating")
+	WebElement spinner;
+
 	By CartAdd = By.cssSelector(".card-body button:last-of-type");
 	By productLocator = By.cssSelector("b");
+	By toastContainer = By.cssSelector("#toast-container");
 	
 	
-	
-	public WebElement findItems(String productName) throws InterruptedException {
+	public List<WebElement> getProductList() {
 		
-		WebElement product = items.stream()
-		.filter(s -> s.findElement(productLocator).getText().equalsIgnoreCase(productName)).findFirst()
-		.orElse(null);
-		
+		return products;
+	}
+
+	public WebElement getProductByName(String productName) throws InterruptedException {
+
+		WebElement product = getProductList().stream()
+				.filter(s -> s.findElement(productLocator).getText().equalsIgnoreCase(productName)).findFirst()
+				.orElse(null);
+
 		return product;
-		
+
 	}
-	
+
 	public void addProductToCart(String productName) throws InterruptedException {
-		
-		findItems(productName).findElement(CartAdd).click();
+
+		getProductByName(productName).findElement(CartAdd).click();
+		waitForElementToAppear(toastContainer);
+		waitForElementToBeInvisible(spinner);
 	}
-	
-	public void goTocart () {
-		
-		cartButton.click();
-	}
+
 
 }

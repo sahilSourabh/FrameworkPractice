@@ -5,12 +5,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LandingPage {
+import testingframework.AbstractComponents.AbstractComponent;
+
+public class LandingPage extends AbstractComponent {
 	
 	WebDriver driver;
 	
 	public LandingPage(WebDriver driver) {
 		
+		super(driver);
 		this.driver= driver;
 		PageFactory.initElements(driver, this);
 		
@@ -31,8 +34,11 @@ public class LandingPage {
 		pwd.sendKeys(password);
 		
 	}
-	public void login () {
+	public ProductCatalogue login () {
+		
 		login.click();
+		ProductCatalogue productcatalogue = new ProductCatalogue(driver);
+		return productcatalogue;
 		
 	}
 	
