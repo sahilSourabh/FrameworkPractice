@@ -62,8 +62,8 @@ public class StandAloneTest {
 
 		// 3.Cartpage
 		cartpage.listOfOrders();
-		boolean itemMatch = cartpage.verifyProductDisplayed(productName);
-		// boolean itemMatch = cartpage.findOrder("ACE");
+		//boolean itemMatch = cartpage.verifyProductDisplayed(productName);
+		boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
 		System.out.println("Items matched: " + itemMatch);
 
 		softAssert.assertTrue(itemMatch, "Incorrect item match - ");
@@ -83,15 +83,15 @@ public class StandAloneTest {
 
 		String message = confirmationpage.getConfirmationMessage();
 		System.out.println(message);
-		String orderID = confirmationpage.getOrderId();
-		// String orderID = "667738833dgff";
+		//String orderID = confirmationpage.getOrderId();
+		String orderID = "667738833dgff";
 		System.out.println("OrderId: " + orderID);
 		OrdersPage orderspage = confirmationpage.gotoOrdersPage();
 
 		// Orders page
 		orderspage.getIdList();
 		boolean idmatch = orderspage.findOrderId(orderID);
-		softAssert.assertTrue(idmatch, "OrderID is Incorrect - ");
+		softAssert.assertTrue(idmatch, "Order is not valid - ");
 
 		Thread.sleep(2000);
 		driver.quit();
