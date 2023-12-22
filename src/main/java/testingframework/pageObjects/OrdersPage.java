@@ -7,11 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class OrdersPage {
+import testingframework.AbstractComponents.AbstractComponent;
+
+public class OrdersPage extends AbstractComponent{
 
 	WebDriver driver; 
 	
 	public OrdersPage(WebDriver driver) {
+		super(driver);
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -24,7 +27,7 @@ public class OrdersPage {
 		return idList;
 	}
 	
-	public boolean findId(String orderId) {
+	public boolean findOrderId(String orderId) {
 		
 		boolean idmatch = getIdList().stream().anyMatch(s->s.getText().equals(orderId));
 		return idmatch;

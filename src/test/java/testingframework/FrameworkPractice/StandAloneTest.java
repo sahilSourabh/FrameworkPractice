@@ -77,7 +77,7 @@ public class StandAloneTest {
 		checkoutpage.inputCountryDetails(countryInput);
 		checkoutpage.selectCountry(countryName);
 
-		ConfirmationPage confirmationpage = checkoutpage.gotoConfirmationPage();
+		ConfirmationPage confirmationpage = checkoutpage.submitOrder();
 
 		// Confirmation page
 
@@ -90,7 +90,7 @@ public class StandAloneTest {
 
 		// Orders page
 		orderspage.getIdList();
-		boolean idmatch = orderspage.findId(orderID);
+		boolean idmatch = orderspage.findOrderId(orderID);
 		softAssert.assertTrue(idmatch, "OrderID is Incorrect - ");
 
 		Thread.sleep(2000);

@@ -37,10 +37,10 @@ public class CheckOutPage {
 		select.click();
 	}
 	
-	public ConfirmationPage gotoConfirmationPage() {
+	public ConfirmationPage submitOrder() {
 		
 		placeOrderButton.click();
-		ConfirmationPage confirmationpage = new ConfirmationPage(driver);
+		ConfirmationPage confirmationpage =  new ConfirmationPage(driver);
 		return confirmationpage;
 	}
 	
