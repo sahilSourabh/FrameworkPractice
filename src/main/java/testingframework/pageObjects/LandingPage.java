@@ -28,21 +28,18 @@ public class LandingPage extends AbstractComponent {
 	@FindBy(css="#login")
 	WebElement login;
 	
-	public void loginDetails(String username, String password) {
+	
+	public ProductCatalogue loginApplication (String username, String password) {
 		
 		mail.sendKeys(username);
 		pwd.sendKeys(password);
-		
-	}
-	public ProductCatalogue login () {
-		
 		login.click();
 		ProductCatalogue productcatalogue = new ProductCatalogue(driver);
 		return productcatalogue;
 		
 	}
 	
-	public void goTo(String url) {
+	public void goTo() {
 		driver.get("https://rahulshettyacademy.com/client/");
 	}
 	

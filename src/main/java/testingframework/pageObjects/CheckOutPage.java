@@ -7,12 +7,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CheckOutPage {
+import testingframework.AbstractComponents.AbstractComponent;
+
+public class CheckOutPage extends AbstractComponent{
 
 	WebDriver driver;
 	
 	public CheckOutPage(WebDriver driver) {
 
+		super(driver);
 		this.driver= driver;
 		PageFactory.initElements(driver, this);
 	}

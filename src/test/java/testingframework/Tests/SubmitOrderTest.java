@@ -1,15 +1,19 @@
-package testingframework.FrameworkPractice;
+package testingframework.Tests;
 
+import java.io.IOException;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import testingframework.TestComponents.BaseTest;
 import testingframework.pageObjects.CartPage;
 import testingframework.pageObjects.CheckOutPage;
 import testingframework.pageObjects.ConfirmationPage;
@@ -17,33 +21,23 @@ import testingframework.pageObjects.LandingPage;
 import testingframework.pageObjects.OrdersPage;
 import testingframework.pageObjects.ProductCatalogue;
 
-public class StandAloneTest {
+public class SubmitOrderTest extends BaseTest{
 
-	public static void main(String[] args) throws InterruptedException {
+	@Test
+	public void SubmitOrder() throws InterruptedException, IOException{
 		// TODO Auto-generated method stub
 
-		String url = "https://rahulshettyacademy.com/client/";
 		String username = "ace_kazuki@gmail.com";
 		String pwd = "Acekazuki@123";
 		String productName = "ACE SWAGS";
 		String countryInput = "ind";
 		String countryName = "India";
 		
-		
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
-		// options.addArguments("headless");
-
-		WebDriver driver = new ChromeDriver(options);
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		SoftAssert softAssert = new SoftAssert();
 
 		// 1.landing page
-		LandingPage landingpage = new LandingPage(driver);
-		landingpage.goTo(url);
-		landingpage.loginDetails(username, pwd);
-		ProductCatalogue productcatalogue = landingpage.login();
+		LandingPage landingpage = launchApplication();
+		ProductCatalogue productcatalogue = landingpage.loginApplication(username, pwd);
 
 		// 2.Product catalogue
 		productcatalogue.getProductList();
@@ -62,8 +56,8 @@ public class StandAloneTest {
 
 		// 3.Cartpage
 		cartpage.listOfOrders();
-		//boolean itemMatch = cartpage.verifyProductDisplayed(productName);
-		boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
+		boolean itemMatch = cartpage.verifyProductDisplayed(productName);
+		//boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
 		System.out.println("Items matched: " + itemMatch);
 
 		softAssert.assertTrue(itemMatch, "Incorrect item match - ");
@@ -83,8 +77,8 @@ public class StandAloneTest {
 
 		String message = confirmationpage.getConfirmationMessage();
 		System.out.println(message);
-		//String orderID = confirmationpage.getOrderId();
-		String orderID = "667738833dgff";
+		String orderID = confirmationpage.getOrderId();
+		//String orderID = "667738833dgff";
 		System.out.println("OrderId: " + orderID);
 		OrdersPage orderspage = confirmationpage.gotoOrdersPage();
 
