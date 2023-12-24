@@ -3,6 +3,7 @@ package testingframework.pageObjects;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,6 +40,7 @@ public class ProductCatalogue extends AbstractComponent {
 		
 		return products;
 	}
+	
 
 	public WebElement getProductByName(String productName) throws InterruptedException {
 
@@ -49,6 +51,13 @@ public class ProductCatalogue extends AbstractComponent {
 		return product;
 
 	}
+	
+	public void scrollIntoView(String productName) throws InterruptedException {
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true)", getProductByName(productName));
+		Thread.sleep(2000);
+	}
 
 	public void addProductToCart(String productName) throws InterruptedException {
 
@@ -56,6 +65,8 @@ public class ProductCatalogue extends AbstractComponent {
 		waitForElementToAppear(toastContainer);
 		waitForElementToBeInvisible(spinner);
 	}
+	
+	
 
 
 }

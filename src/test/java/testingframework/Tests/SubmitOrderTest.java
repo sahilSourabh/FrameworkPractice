@@ -40,17 +40,11 @@ public class SubmitOrderTest extends BaseTest{
 
 		// 2.Product catalogue
 		productcatalogue.getProductList();
-		WebElement prod = productcatalogue.getProductByName(productName);
-
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)", prod);
-		Thread.sleep(2000);
-
+		productcatalogue.scrollIntoView(productName);
+		
 		productcatalogue.addProductToCart(productName);
-
-		WebElement cartButton = driver.findElement(By.xpath("//button[contains(@routerlink,'/cart')]"));
-		js.executeScript("arguments[0].scrollIntoView(true)", cartButton);
-		Thread.sleep(2000);
+		productcatalogue.scrollToCartButton();
+		
 		CartPage cartpage = productcatalogue.goTocartPage();
 
 		// 3.Cartpage
@@ -64,8 +58,7 @@ public class SubmitOrderTest extends BaseTest{
 		CheckOutPage checkoutpage = cartpage.gotCheckOutPage();
 
 		// 4.Checkout Page
-		js.executeScript("window.scrollBy(0,400)");
-		Thread.sleep(1000);
+		checkoutpage.scrollingWindow();
 
 		checkoutpage.inputCountryDetails(countryInput);
 		checkoutpage.selectCountry(countryName);
