@@ -28,6 +28,9 @@ public class LandingPage extends AbstractComponent {
 	@FindBy(css="#login")
 	WebElement login;
 	
+	@FindBy(css="[class*='toast-message']")
+	WebElement errorMessage;
+	
 	
 	public ProductCatalogue loginApplication (String username, String password) {
 		
@@ -43,7 +46,11 @@ public class LandingPage extends AbstractComponent {
 		driver.get("https://rahulshettyacademy.com/client/");
 	}
 	
-	
+	public String getLandingpageErrorMessage() {
+		
+		waitForWebElementToAppear(errorMessage);
+		return errorMessage.getText();
+	}
 
 
 	}

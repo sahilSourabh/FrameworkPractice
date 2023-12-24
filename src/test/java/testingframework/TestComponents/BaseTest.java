@@ -47,7 +47,8 @@ public class BaseTest {
 				
 				}
 			driver = new ChromeDriver(options);
-			driver.manage().window().setSize(new Dimension(1440,900));
+			driver.manage().window().maximize();
+//			driver.manage().window().setSize(new Dimension(1440,900));
 			
 		}
 		else if(browserName.equalsIgnoreCase("edge")) {
