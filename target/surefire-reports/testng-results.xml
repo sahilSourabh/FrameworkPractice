@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-12-24T19:22:01 IST" name="Surefire suite" finished-at="2023-12-24T19:22:19 IST" duration-ms="17540">
+    <groups>
+    </groups>
+    <test started-at="2023-12-24T19:22:01 IST" name="Surefire test" finished-at="2023-12-24T19:22:19 IST" duration-ms="17540">
+      <class name="testingframework.Tests.SubmitOrderTest">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:testingframework.Tests.SubmitOrderTest@78047b92]" started-at="2023-12-24T19:22:02 IST" name="launchApplication" finished-at="2023-12-24T19:22:07 IST" duration-ms="5408" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchApplication -->
+        <test-method signature="SubmitOrder()[pri:0, instance:testingframework.Tests.SubmitOrderTest@78047b92]" started-at="2023-12-24T19:22:07 IST" name="SubmitOrder" finished-at="2023-12-24T19:22:17 IST" duration-ms="9998" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SubmitOrder -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testingframework.Tests.SubmitOrderTest@78047b92]" started-at="2023-12-24T19:22:17 IST" name="tearDown" finished-at="2023-12-24T19:22:19 IST" duration-ms="2084" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testingframework.Tests.SubmitOrderTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

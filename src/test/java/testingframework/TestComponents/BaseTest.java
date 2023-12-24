@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -22,14 +23,10 @@ public class BaseTest {
 	public WebDriver driver;
 	public LandingPage landingpage;
 	
-	
 	public WebDriver initializeDriver() throws IOException {
 		// TODO Auto-generated method stub
-
-//		ChromeOptions options = new ChromeOptions();
-//		options.addArguments("--start-maximized");
-//		options.addArguments("headless");
-//		options.addArguments("window-size=1440,900");
+		
+		
 		
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+
@@ -38,9 +35,20 @@ public class BaseTest {
 		prop.load(fis);
 		String browserName = prop.getProperty("browser");
 		
-		if(browserName.equalsIgnoreCase("chrome")) {
+		if(browserName.contains("chrome")) {
 			
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			
+			if(browserName.contains("headless")) {
+				
+//				options.addArguments("--start-maximized");
+//				options.addArguments("window-size=1440,900");
+				options.addArguments("headless");
+				
+				}
+			driver = new ChromeDriver(options);
+			driver.manage().window().setSize(new Dimension(1440,900));
+			
 		}
 		else if(browserName.equalsIgnoreCase("edge")) {
 			
@@ -49,20 +57,27 @@ public class BaseTest {
 		else {
 			driver = new FirefoxDriver();
 		}
-
-		driver.manage().window().setSize(new Dimension(1440,900));
+		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
 		return driver;
 
 	}
 	
+	@BeforeMethod
 	public LandingPage launchApplication() throws IOException {
 		
 		driver = initializeDriver();
 		landingpage = new LandingPage(driver);
 		landingpage.goTo();
 		return landingpage;
+	}
+	
+	@AfterMethod
+	public void tearDown() throws InterruptedException {
+		
+		Thread.sleep(2000);
+		driver.quit();
 	}
 
 }

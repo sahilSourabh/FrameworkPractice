@@ -6,6 +6,8 @@
       <class name="testingframework.Tests.SubmitOrderTest">
         <methods>
           <include name="SubmitOrder"/>
+          <include name="tearDown"/>
+          <include name="launchApplication"/>
         </methods>
       </class> <!-- testingframework.Tests.SubmitOrderTest -->
     </classes>

@@ -36,7 +36,6 @@ public class SubmitOrderTest extends BaseTest{
 		SoftAssert softAssert = new SoftAssert();
 
 		// 1.landing page
-		LandingPage landingpage = launchApplication();
 		ProductCatalogue productcatalogue = landingpage.loginApplication(username, pwd);
 
 		// 2.Product catalogue
@@ -86,9 +85,6 @@ public class SubmitOrderTest extends BaseTest{
 		orderspage.getIdList();
 		boolean idmatch = orderspage.findOrderId(orderID);
 		softAssert.assertTrue(idmatch, "Order is not valid - ");
-
-		Thread.sleep(2000);
-		driver.quit();
 
 		softAssert.assertAll();
 
