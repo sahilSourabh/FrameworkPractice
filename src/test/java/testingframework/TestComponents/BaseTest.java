@@ -1,5 +1,6 @@
 package testingframework.TestComponents;
 
+import org.testng.annotations.AfterMethod;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -13,8 +14,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import testingframework.pageObjects.LandingPage;
 
@@ -24,9 +23,6 @@ public class BaseTest {
 	public LandingPage landingpage;
 	
 	public WebDriver initializeDriver() throws IOException {
-		// TODO Auto-generated method stub
-		
-		
 		
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+
@@ -43,12 +39,12 @@ public class BaseTest {
 				
 //				options.addArguments("--start-maximized");
 //				options.addArguments("window-size=1440,900");
-				options.addArguments("headless");
+				options.addArguments("--headless");
 				
 				}
 			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
-//			driver.manage().window().setSize(new Dimension(1440,900));
+//			driver.manage().window().setSize(new Dimension(1440,1080));
 			
 		}
 		else if(browserName.equalsIgnoreCase("edge")) {
@@ -62,10 +58,9 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
 		return driver;
-
 	}
 	
-	@BeforeMethod
+	@BeforeMethod(alwaysRun=true)
 	public LandingPage launchApplication() throws IOException {
 		
 		driver = initializeDriver();
@@ -74,7 +69,7 @@ public class BaseTest {
 		return landingpage;
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun=true)
 	public void tearDown() throws InterruptedException {
 		
 		Thread.sleep(2000);

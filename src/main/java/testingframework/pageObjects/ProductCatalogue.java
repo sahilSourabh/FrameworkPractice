@@ -52,7 +52,7 @@ public class ProductCatalogue extends AbstractComponent {
 
 	}
 	
-	public void scrollIntoView(String productName) throws InterruptedException {
+	public void scrollIntoProductView(String productName) throws InterruptedException {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true)", getProductByName(productName));

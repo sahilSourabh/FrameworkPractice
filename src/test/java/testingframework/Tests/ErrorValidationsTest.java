@@ -10,7 +10,7 @@ import testingframework.TestComponents.BaseTest;
 import testingframework.pageObjects.CartPage;
 import testingframework.pageObjects.ProductCatalogue;
 
-public class ErrorValidations extends BaseTest {
+public class ErrorValidationsTest extends BaseTest {
 	
 	@Test
 	public void LoginErrorValidation() {
