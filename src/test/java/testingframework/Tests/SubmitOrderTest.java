@@ -1,8 +1,10 @@
 package testingframework.Tests;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -19,8 +21,8 @@ public class SubmitOrderTest extends BaseTest{
 	String pwd = "Acekazuki@123";
 	String productName = "ACE SWAGS";
 	
-	@Test
-	public void SubmitOrder() throws InterruptedException, IOException{
+	@Test(dataProvider="getData")
+	public void SubmitOrder(HashMap <String,String> input) throws InterruptedException, IOException{
 		// TODO Auto-generated method stub
 
 		String countryInput = "ind";
@@ -29,21 +31,21 @@ public class SubmitOrderTest extends BaseTest{
 		SoftAssert softAssert = new SoftAssert();
 
 		// 1.landing page
-		ProductCatalogue productcatalogue = landingpage.loginApplication(username, pwd);
+		ProductCatalogue productcatalogue = landingpage.loginApplication(input.get("username"), input.get("password"));
 
 		// 2.Product catalogue
 		productcatalogue.getProductList();
-		productcatalogue.getProductByName(productName);
-		productcatalogue.scrollIntoProductView(productName);
+		productcatalogue.getProductByName(input.get("product"));
+		productcatalogue.scrollIntoProductView(input.get("product"));
 		
-		productcatalogue.addProductToCart(productName);
+		productcatalogue.addProductToCart(input.get("product"));
 		productcatalogue.scrollToCartButton();
 		
 		CartPage cartpage = productcatalogue.goTocartPage();
 
 		// 3.Cartpage
 		cartpage.listOfOrders();
-		boolean itemMatch = cartpage.verifyProductDisplayed(productName);
+		boolean itemMatch = cartpage.verifyProductDisplayed(input.get("product"));
 		//boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
 		System.out.println("Items matched: " + itemMatch);
 
@@ -61,6 +63,8 @@ public class SubmitOrderTest extends BaseTest{
 		// 5.Confirmation page
 		String message = confirmationpage.getConfirmationMessage();
 		System.out.println(message);
+		Assert.assertTrue(message.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
+		Thread.sleep(2000);
 //		String orderID = confirmationpage.getOrderId();
 //		//String orderID = "667738833dgff";
 //		System.out.println("OrderId: " + orderID);
@@ -75,14 +79,36 @@ public class SubmitOrderTest extends BaseTest{
 
 	}
 	
-	@Test(dependsOnMethods="SubmitOrder")
+	@Test(dependsOnMethods= {"SubmitOrder"})
 	public void orderHistoryTest() throws InterruptedException {
 		
 		ProductCatalogue productcatalogue = landingpage.loginApplication(username, pwd);
 		OrdersPage orderspage =productcatalogue.gotoOrdersPage();
 		Thread.sleep(2000);;
-		orderspage.verifyDisplayedOrders(productName);
+		boolean orderMatch = orderspage.verifyDisplayedOrders(productName);
+		// System.out.println(orderMatch);
+		Assert.assertTrue(orderMatch);
 		Thread.sleep(2000);
 	}
+	
+	@DataProvider
+	public Object[][] getData() {
+		
+		HashMap<String,String> map1 = new HashMap<>();
+		map1.put("username", "AvosD@gmail.com");
+		map1.put("password", "Avos@1234");
+		map1.put("product", "ADIDAS ORIGINAL");
+		
+		HashMap<String,String> map2 = new HashMap<>();
+		map2.put("username", "ace_kazuki@gmail.com");
+		map2.put("password", "Acekazuki@123");
+		map2.put("product", "ACE SWAGS");
+		
+		return new Object[][] { {map1}, {map2}};
+		
+		
+//		return new Object[][] { {"AvosD@gmail.com","Avos@1234","ADIDAS ORIGINAL"}, {"ace_kazuki@gmail.com","Acekazuki@123","ACE SWAGS"}};
+	}
+	
 
 }

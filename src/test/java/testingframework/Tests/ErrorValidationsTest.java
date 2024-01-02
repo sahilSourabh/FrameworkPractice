@@ -12,7 +12,7 @@ import testingframework.pageObjects.ProductCatalogue;
 
 public class ErrorValidationsTest extends BaseTest {
 	
-	@Test
+	@Test(groups="ErrorHandling")
 	public void LoginErrorValidation() {
 		
 		String username = "ace_kazuki@gmail.com";
@@ -32,25 +32,19 @@ public class ErrorValidationsTest extends BaseTest {
 		String productName = "ACE SWAGS";
 		
 		ProductCatalogue productcatalogue = landingpage.loginApplication(username, pwd);
-
-		WebElement prod = productcatalogue.getProductByName(productName);
+		productcatalogue.getProductList();
+		productcatalogue.getProductByName(productName);
+		productcatalogue.scrollIntoProductView(productName);
 		
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)", prod);
-		Thread.sleep(2000);
-
 		productcatalogue.addProductToCart(productName);
-
-		WebElement cartButton = driver.findElement(By.xpath("//button[contains(@routerlink,'/cart')]"));
-		js.executeScript("arguments[0].scrollIntoView(true)", cartButton);
-		Thread.sleep(2000);
+		productcatalogue.scrollToCartButton();
+		
 		CartPage cartpage = productcatalogue.goTocartPage();
-
-		//boolean itemMatch = cartpage.verifyProductDisplayed(productName);
+		cartpage.listOfOrders();
 		boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
 		System.out.println("Items matched: " + itemMatch);
 
-		Assert.assertTrue(itemMatch, "Incorrect item match - ");
+		Assert.assertFalse(itemMatch);
 
 		
 	}

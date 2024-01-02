@@ -2,6 +2,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests" >
 	
+  <groups>
+	  <run>
+		  <include name="ErrorHandling" />
+	  </run>
+  </groups>
+  
   <test name="Submit Order Test" thread-count="5" >
     <classes>
       <class name="testingframework.Tests.SubmitOrderTest"/>
