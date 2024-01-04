@@ -5,7 +5,7 @@
     <classes>
       <class name="testingframework.Tests.SubmitOrderTest">
         <methods>
-          <include name="SubmitOrder" invocation-numbers="0"/>
+          <include name="SubmitOrder" invocation-numbers="1"/>
           <include name="tearDown"/>
           <include name="launchApplication"/>
         </methods>

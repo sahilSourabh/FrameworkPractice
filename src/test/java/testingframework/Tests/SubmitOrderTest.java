@@ -2,6 +2,7 @@ package testingframework.Tests;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -15,19 +16,19 @@ import testingframework.pageObjects.ConfirmationPage;
 import testingframework.pageObjects.OrdersPage;
 import testingframework.pageObjects.ProductCatalogue;
 
-public class SubmitOrderTest extends BaseTest{
+public class SubmitOrderTest extends BaseTest {
 
 	String username = "ace_kazuki@gmail.com";
 	String pwd = "Acekazuki@123";
 	String productName = "ACE SWAGS";
-	
-	@Test(dataProvider="getData")
-	public void SubmitOrder(HashMap <String,String> input) throws InterruptedException, IOException{
+
+	@Test(dataProvider = "getData")
+	public void SubmitOrder(HashMap<String, String> input) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 
 		String countryInput = "ind";
 		String countryName = "India";
-		
+
 		SoftAssert softAssert = new SoftAssert();
 
 		// 1.landing page
@@ -37,16 +38,16 @@ public class SubmitOrderTest extends BaseTest{
 		productcatalogue.getProductList();
 		productcatalogue.getProductByName(input.get("product"));
 		productcatalogue.scrollIntoProductView(input.get("product"));
-		
+
 		productcatalogue.addProductToCart(input.get("product"));
 		productcatalogue.scrollToCartButton();
-		
+
 		CartPage cartpage = productcatalogue.goTocartPage();
 
 		// 3.Cartpage
 		cartpage.listOfOrders();
 		boolean itemMatch = cartpage.verifyProductDisplayed(input.get("product"));
-		//boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
+		// boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
 		System.out.println("Items matched: " + itemMatch);
 
 		Assert.assertTrue(itemMatch, "Incorrect item match - ");
@@ -78,37 +79,40 @@ public class SubmitOrderTest extends BaseTest{
 		softAssert.assertAll();
 
 	}
-	
-	@Test(dependsOnMethods= {"SubmitOrder"})
+
+	@Test(dependsOnMethods = { "SubmitOrder" })
 	public void orderHistoryTest() throws InterruptedException {
-		
+
 		ProductCatalogue productcatalogue = landingpage.loginApplication(username, pwd);
-		OrdersPage orderspage =productcatalogue.gotoOrdersPage();
-		Thread.sleep(2000);;
+		OrdersPage orderspage = productcatalogue.gotoOrdersPage();
+		Thread.sleep(2000);
+		;
 		boolean orderMatch = orderspage.verifyDisplayedOrders(productName);
 		// System.out.println(orderMatch);
 		Assert.assertTrue(orderMatch);
 		Thread.sleep(2000);
 	}
-	
+
 	@DataProvider
-	public Object[][] getData() {
-		
-		HashMap<String,String> map1 = new HashMap<>();
-		map1.put("username", "AvosD@gmail.com");
-		map1.put("password", "Avos@1234");
-		map1.put("product", "ADIDAS ORIGINAL");
-		
-		HashMap<String,String> map2 = new HashMap<>();
-		map2.put("username", "ace_kazuki@gmail.com");
-		map2.put("password", "Acekazuki@123");
-		map2.put("product", "ACE SWAGS");
-		
-		return new Object[][] { {map1}, {map2}};
-		
-		
+	public Object[][] getData() throws IOException {
+
+//		HashMap<String,String> map1 = new HashMap<>();
+//		map1.put("username", "AvosD@gmail.com");
+//		map1.put("password", "Avos@1234");
+//		map1.put("product", "ADIDAS ORIGINAL");
+//		
+//		HashMap<String,String> map2 = new HashMap<>();
+//		map2.put("username", "ace_kazuki@gmail.com");
+//		map2.put("password", "Acekazuki@123");
+//		map2.put("product", "ACE SWAGS");
+//		
+//		return new Object[][] { {map1}, {map2}};
+
 //		return new Object[][] { {"AvosD@gmail.com","Avos@1234","ADIDAS ORIGINAL"}, {"ace_kazuki@gmail.com","Acekazuki@123","ACE SWAGS"}};
+		List<HashMap<String, String>> data = getJsonData(System.getProperty("user.dir")+ "\\src\\test\\java\\testingframework\\data\\PurchaseOrder.json");
+
+		return new Object[][] { { data.get(0) }, { data.get(1) } };
+
 	}
-	
 
 }
