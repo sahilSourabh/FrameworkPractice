@@ -17,7 +17,7 @@ public class Listeners extends BaseTest implements ITestListener {
 	
 	ExtentReports extent = ExtentReportsNG.getReportObject();
 	ExtentTest test;
-	ThreadLocal<ExtentTest> extentTest =  new ThreadLocal<ExtentTest>();
+	ThreadLocal<ExtentTest> extentTest =  new ThreadLocal<ExtentTest>();  //provides unique Thread ID
 
 	@Override
 	public void onTestStart(ITestResult result) {
@@ -61,7 +61,6 @@ public class Listeners extends BaseTest implements ITestListener {
 		
 		//test.addScreenCaptureFromPath(path, result.getMethod().getMethodName());
 		extentTest.get().addScreenCaptureFromPath(path, result.getMethod().getMethodName());
-		
 		
 	}
 

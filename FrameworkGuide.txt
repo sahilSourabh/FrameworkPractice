@@ -1,0 +1,25 @@
+FRAMEWORK TUTORIAL :
+
+>> create a StandAlone test.
+>> Break the test into different classes/pages using Page Object concept.
+>> Perform the actions in the respective classes.
+>> Create an Object for each pages and use it to connect with the StandAlone test.
+
+>> Create an AbstractComponent class to include the repetetive/reusable methods such as waits.
+>> Create a BaseTest to contain the driver initialization and launching the application.
+   >> launchApplication should get executed before executing any other methods. For that we will use BeforeMethod annotations.
+   >> use AfterMethod annotations for the methods to end the tests.
+   
+(Error Validations) 
+>> Create ErrorValidation test to validate various errors such as landingpage errors or verifyingProducts added validations.
+
+(Test grouping and Parameterization)
+>> Convert to TestNG to create and group multiple testcases.
+>> Make parameterized tests using HashMap DataProviders. We will create different HashMaps for each set of data to use.
+>> Create a JSON file with some data and drive data from the JSON file to the HashMap using DataProviders.
+
+(Listeners and Extent Reports)
+>> Implement TestNG Listeners to capture Screenshot on automatic test failures and logging. Built Screenshot utility for the framework.
+>> Create Extent Report wrapper to generate HTML reports for the application.
+>> Make Framework necessary changes to support parallel execution with Thread safe mechanism.
+>> Implement TestNG retry mechanism to rerun the failed flaky tests in the application.

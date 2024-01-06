@@ -4,12 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import testingframework.TestComponents.BaseTest;
+import testingframework.TestComponents.Retry;
 import testingframework.pageObjects.CartPage;
 import testingframework.pageObjects.ProductCatalogue;
 
 public class ErrorValidationsTest extends BaseTest {
 	
-	@Test(groups="ErrorHandling")
+	@Test(groups="ErrorHandling", retryAnalyzer = Retry.class)
 	public void LoginErrorValidation() {
 		
 		String username = "ace_kazuki@gmail.com";
