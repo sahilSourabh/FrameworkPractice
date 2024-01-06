@@ -1,13 +1,21 @@
 package testingframework.Tests;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import testingframework.TestComponents.BaseTest;
 import testingframework.pageObjects.CartPage;
@@ -26,6 +34,8 @@ public class SubmitOrderTest extends BaseTest {
 	public void SubmitOrder(HashMap<String, String> input) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 
+		
+		
 		String countryInput = "ind";
 		String countryName = "India";
 
@@ -93,6 +103,16 @@ public class SubmitOrderTest extends BaseTest {
 		Thread.sleep(2000);
 	}
 
+	public String getScreenshot(String testcaseName) throws IOException {
+
+		TakesScreenshot ss = (TakesScreenshot) driver;
+		File srcFile = ss.getScreenshotAs(OutputType.FILE);
+		File destFile = new File(System.getProperty("user.dir") + "//reports" + testcaseName + ".png");
+		FileUtils.copyFile(srcFile, destFile);
+
+		return (System.getProperty("user.dir") + "//reports" + testcaseName + ".png");
+	}
+
 	@DataProvider
 	public Object[][] getData() throws IOException {
 
@@ -109,7 +129,8 @@ public class SubmitOrderTest extends BaseTest {
 //		return new Object[][] { {map1}, {map2}};
 
 //		return new Object[][] { {"AvosD@gmail.com","Avos@1234","ADIDAS ORIGINAL"}, {"ace_kazuki@gmail.com","Acekazuki@123","ACE SWAGS"}};
-		List<HashMap<String, String>> data = getJsonData(System.getProperty("user.dir")+ "\\src\\test\\java\\testingframework\\data\\PurchaseOrder.json");
+		List<HashMap<String, String>> data = getJsonData(
+				System.getProperty("user.dir") + "\\src\\test\\java\\testingframework\\data\\PurchaseOrder.json");
 
 		return new Object[][] { { data.get(0) }, { data.get(1) } };
 
