@@ -7,7 +7,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 public class ExtentReportsNG {
 	
-	public static ExtentReports getReportData() {
+	public static ExtentReports getReportObject() {
 		
 		File path = new File(System.getProperty("user.dir")+"//reports//index.html");
 		

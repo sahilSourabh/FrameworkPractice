@@ -1,8 +1,5 @@
 package testingframework.Tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,7 +18,7 @@ public class ErrorValidationsTest extends BaseTest {
 		landingpage.loginApplication(username, pwd);
 		String message = landingpage.getLandingpageErrorMessage();
 		System.out.println(message);
-		Assert.assertEquals("Incorrect email or password.", message);
+		Assert.assertEquals("Incorrect email or password", message);
 	}
 	
 	@Test
@@ -44,7 +41,7 @@ public class ErrorValidationsTest extends BaseTest {
 		boolean itemMatch = cartpage.verifyProductDisplayed("ACE");
 		System.out.println("Items matched: " + itemMatch);
 
-		Assert.assertFalse(itemMatch);
+		Assert.assertTrue(itemMatch,"Incorrect Product name :");
 
 		
 	}

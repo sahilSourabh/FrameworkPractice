@@ -2,12 +2,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="false">
 
-
 	<groups>
 		<run>
 			<include name="ErrorHandling" />
 		</run>
 	</groups>
+
 
 	<listeners>
 		<listener class-name="testingframework.TestComponents.Listeners" />
